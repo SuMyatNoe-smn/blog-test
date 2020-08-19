@@ -43,7 +43,9 @@ return [
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'users',
+            // 'driver' => 'passport',
+            // 'provider' => 'users',
+            'provider' => 'banks',
             'hash' => false,
         ],
     ],
@@ -71,10 +73,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'banks' => [
+            'driver' => 'database',
+            'model' => App\Models\Bank::class,
+        ],
     ],
 
     /*

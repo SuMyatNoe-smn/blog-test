@@ -18,3 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::resource('users', 'API\UserController');
+Route::resource('banks', 'API\BankController');
+Route::resource('currencies', 'API\CurrencyController');
+// Route::get('currencies/{bid}', 'API\CurrencyController@display');

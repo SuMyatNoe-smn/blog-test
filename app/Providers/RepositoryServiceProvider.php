@@ -15,5 +15,9 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Interfaces\UserInterface',
             'App\Repositories\UserRepository'
         );
+        $this->app->bind(
+            'App\Interfaces\CurrencyInterface',
+            'App\Repositories\CurrencyRepository',
+        );
     }
 }
