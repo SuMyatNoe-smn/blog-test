@@ -12,12 +12,17 @@ class RepositoryServiceProvider extends ServiceProvider
         // You must place Interface in first place
         // If you dont, the Repository will not get readed.
         $this->app->bind(
-            'App\Interfaces\UserInterface',
+            'App\Repositories\BaseRepository'
+        );
+        $this->app->bind(
+            // 'App\Interfaces\UserInterface',
             'App\Repositories\UserRepository'
         );
         $this->app->bind(
-            'App\Interfaces\CurrencyInterface',
-            'App\Repositories\CurrencyRepository',
+            'App\Repositories\CurrencyRepository'
+        );
+        $this->app->bind(
+            'App\Repositories\BankRepository'
         );
     }
 }

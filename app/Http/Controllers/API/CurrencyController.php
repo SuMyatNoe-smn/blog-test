@@ -5,18 +5,21 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\CurrencyRequest;
-use App\Interfaces\CurrencyInterface;
+use App\Repositories\CurrencyRepository;
+use App\Repositories\BankRepository;
 
 class CurrencyController extends Controller
 {
-    protected $currencyInteface;
+    protected $currencyRepository;
+    protected $bankRepository;
 
     /**
      * Create a new constructor for this controller
      */
-    public function __construct(CurrencyInterface $currencyInteface)
+    public function __construct(CurrencyRepository $currencyRepository, BankRepository $bankRepository)
     {
-        $this->currencyInteface = $currencyInteface;
+        $this->currencyRepository = $currencyRepository;
+        $this->bankRepository = $bankRepository;
     }
 
     /**
@@ -26,17 +29,10 @@ class CurrencyController extends Controller
      */
     public function index()
     {
-        return $this->currencyInteface->getAllCurrency();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return  $this->currencyRepository->getAll();
+        // $currencies = $this->currencyRepository->getAll();
+        // $banks = $this->bankRepository->getAll();
+        // return view('index', compact('currencies', 'banks'));
     }
 
     /**
@@ -47,7 +43,7 @@ class CurrencyController extends Controller
      */
     public function store(CurrencyRequest $request)
     {
-        return $this->currencyInteface->requestCurrency($request);
+        return $this->currencyRepository->requestCurrency($request);
     }
 
     /**
@@ -56,31 +52,9 @@ class CurrencyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show($id)
-    // {
-    //     return $this->currencyInteface->getCurrencyById($id);
-    // }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($bank_id)
+    public function show($id)
     {
-        return $this->currencyInteface->getCurrencyByBankId($bank_id);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return $this->currencyRepository->getById($id);
     }
 
     /**
@@ -92,7 +66,7 @@ class CurrencyController extends Controller
      */
     public function update(CurrencyRequest $request, $id)
     {
-        return $this->currencyInteface->requestCurrency($request, $id);
+        return $this->currencyRepository->requestCurrency($request, $id);
     }
 
     /**
@@ -103,6 +77,6 @@ class CurrencyController extends Controller
      */
     public function destroy($id)
     {
-        return $this->currencyInteface->deleteCurrency($id);
+        return $this->currencyRepository->delete($id);
     }
 }
